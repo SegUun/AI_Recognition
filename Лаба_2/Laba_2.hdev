@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<procedure name="main">
+<interface/>
+<body>
+<c></c>
+<l>open_framegrabber ('DirectShow', 1, 1, 0, 0, 0, 0, 'default', 8, 'gray', -1, 'false', '[0] mjpg (640x360)', '[0] ', 0, -1, AcqHandle)</l>
+<l>grab_image_start (AcqHandle, -1)</l>
+<l>grab_image_async (Image, AcqHandle, -1)</l>
+<l>write_image (Image, 'jpeg', 0, 'C:/Users/maksi/Desktop/file_laba_2_1.jpg')</l>
+<l>close_framegrabber (AcqHandle)</l>
+<c></c>
+<l>dev_open_window_fit_image(Image, 0, 0, -1, -1, WindowHandle)</l>
+<c></c>
+<l>set_line_width (WindowHandle, 3)</l>
+<l>dev_set_color ('white')</l>
+<c></c>
+<l>dev_set_draw ('margin')</l>
+<l>disp_obj(Image, WindowHandle)</l>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
