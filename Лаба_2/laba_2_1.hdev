@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="18.11.0.1">
+<procedure name="main">
+<interface/>
+<body>
+<l>read_image(Image,'C:/Users/maksi/Desktop/file2.jpg')</l>
+<c></c>
+<l>dev_open_window_fit_image(Image, 0, 0, -1, -1, WindowHandle)</l>
+<c>* Задание размера окна по размеру картинки</c>
+<c></c>
+<l>set_line_width (WindowHandle, 3)</l>
+<c>* Толщина линии</c>
+<l>dev_set_color ('white')</l>
+<c>*Цвет линии</c>
+<c></c>
+<l>dev_set_draw ('fill') </l>
+<c>* Тип рисования</c>
+<c></c>
+<l>disp_obj(Image, WindowHandle)</l>
+<c>* Отображение окна</c>
+<c></c>
+<l>count_seconds (Seconds1)</l>
+<c>* Время операции</c>
+<c></c>
+<l>threshold(Image, Region, 150, 255)</l>
+<c>*Преобразование картинки к контрастной</c>
+<c></c>
+<l>area_center (Region, Area, Row1, Column1)</l>
+<c>* Вычисление центра региона</c>
+<c></c>
+<l>orientation_region (Region, Phi1)</l>
+<c>* Ориентация региона</c>
+<c></c>
+<l>smallest_rectangle2 (Region, Row, Column, Phi1, Length1, Length2)</l>
+<l>gen_rectangle2 (Region, Row, Column, Phi1, Length1, Length2)</l>
+<c>* Создание региона</c>
+<c></c>
+<l>count_seconds(Seconds2)</l>
+<c></c>
+<l>dev_disp_text (Seconds2, 'window', 300, 70, 'black', [], [])</l>
+<c>* Отображение времени</c>
+<c></c>
+<l>disp_continue_message(WindowHandle, 'black', 'true')</l>
+<l>stop()</l>
+<c>*Этап 1 (конец)</c>
+<c></c>
+<c></c>
+<l>clear_window(WindowHandle)</l>
+<c>* Очистка окна</c>
+<c></c>
+<l>count_seconds(Seconds3)</l>
+<c></c>
+<l>gen_rectangle2 (Region, Row, Column, Phi1, Length1, Length2)</l>
+<c>* Создание региона</c>
+<c></c>
+<l>threshold(Image, Region, 150, 255)</l>
+<c>*Преобразование картинки к контрастной</c>
+<c></c>
+<l>dev_set_color ('green')</l>
+<c>*Цвет линии</c>
+<c></c>
+<l>boundary (Region, RegionBorder, 'inner')</l>
+<c>* Создание границы</c>
+<c></c>
+<l>dilation_circle (RegionBorder, RegionDilation, 1.5)</l>
+<c>* Толщина границы региона</c>
+<c></c>
+<l>reduce_domain (Image, RegionDilation, ImageReduced)</l>
+<c>* Уменьшение картинки по области</c>
+<c></c>
+<l>edges_sub_pix (ImageReduced, Edges, 'canny', 1, 20, 40)</l>
+<c>* Фильтр кривых</c>
+<c></c>
+<l>count_seconds(Seconds4)</l>
+<c></c>
+<l>dev_set_color ('red')</l>
+<c>*Цвет линии</c>
+<c></c>
+<l>set_display_font (WindowHandle, 20, 'mono', 'true', 'false')</l>
+<c>* Установка шрифта</c>
+<c></c>
+<l>dev_disp_text (Seconds4, 'window', 300, 70, 'black', [], [])</l>
+<c>* Отображение времени</c>
+<c></c>
+<l>disp_continue_message(WindowHandle, 'black', 'true')</l>
+<l>stop()</l>
+<c>*Этап 2 (конец)</c>
+<c></c>
+<l>clear_window (WindowHandle)</l>
+<c></c>
+<l>count_seconds(Seconds5)</l>
+<c></c>
+<l>segment_contours_xld (Edges, ContoursSplit, 'lines_circles', 5, 4, 2)</l>
+<c>* Сегментирование контура</c>
+<c></c>
+<l>sort_contours_xld(ContoursSplit, SortedContours, 'upper_left', 'true', 'row')</l>
+<c>* Сортировка контура</c>
+<c></c>
+<l>dev_set_colored (12)</l>
+<c>* Назначение количества цветов</c>
+<l>dev_display (SortedContours)</l>
+<c>* Вывод контуров</c>
+<c></c>
+<l>count_seconds(Seconds6)</l>
+<c></c>
+<l>dev_set_color ('red')</l>
+<c>*Цвет линии</c>
+<c></c>
+<l>dev_disp_text (Seconds6, 'window', 300, 70, 'black', [], [])</l>
+<c>* Отображение времени</c>
+<c>*Этап 3 (конец)</c>
+<c></c>
+<l>get_image_size (Image, Width, Height)</l>
+<l>dev_open_window (0, 650, Width, Height, 'black', WindowHandleRegion)</l>
+<c>* открываем дополнительное окно для замера времени полного исполнения программы </c>
+<c></c>
+<l>count_seconds(Seconds7)</l>
+<c></c>
+<l>dev_set_window (WindowHandleRegion)</l>
+<c>* Первое окно</c>
+<l>dev_set_color ('green')</l>
+<c>* Цвет окна</c>
+<l>dev_display (Image)</l>
+<l>dev_set_draw ('margin')</l>
+<l>area_center (Region, Area, Row, Column)</l>
+<l>orientation_region (Region, Phi)</l>
+<l>smallest_rectangle2 (Region, Row, Column, Phi, Length1, Length2)</l>
+<l>gen_rectangle2 (Rectangle, Row, Column, Phi, Length1, Length2)</l>
+<c>* Контур</c>
+<c></c>
+<c></c>
+<l>disp_cross (WindowHandleRegion, Row, Column, 10, 40)</l>
+<c>*Центр детали</c>
+<c></c>
+<l>count_seconds(Seconds8)</l>
+<c></c>
+<l>C := 0.87</l>
+<l>dev_set_color ('orange')</l>
+<c>* Оранжевый контур</c>
+<c></c>
+<l>set_display_font (WindowHandleRegion, 20, 'mono', 'true', 'false')</l>
+<l>disp_message (WindowHandleRegion, 'Габаритные размеры:\n' + Length1 * C + ' мм / ' + Length2 * C + ' мм\nУгол ориентации: ' + Phi*57.3 + ' град.' , 'window', Row, Column-100, 'red', 'false')</l>
+<c>* Отображение размеров</c>
+<c></c>
+<l>Sec1 := Seconds2 - Seconds1</l>
+<l>Sec2 := Seconds4 - Seconds3</l>
+<l>Sec3 := Seconds6 - Seconds5</l>
+<l>Sec4 := Seconds8 - Seconds7</l>
+<c>* Секунды выполнения этапов</c>
+<c></c>
+<l>dev_open_window (0, 1300, 470, 160, 'black', WindowHandleInfo)</l>
+<l>dev_set_window (WindowHandleInfo)</l>
+<l>set_display_font (WindowHandleInfo, 30, 'mono', 'true', 'false')</l>
+<l>disp_message (WindowHandleInfo, 'Этап 1: ' + Sec1 + ' секунд\nЭтап 2: ' + Sec2 + ' секунд\nЭтап 3: ' + Sec3 + ' секунд\nЭтап 4: ' + Sec4 + ' секунд', 'window', 0, 0, 'red', 'false')</l>
+<c>* Отображение этапов</c>
+<l>stop()</l>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
